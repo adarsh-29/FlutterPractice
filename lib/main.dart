@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'core/api/api_service.dart';
+import 'features/auth/presentation/screens/login_screen.dart';
 import 'features/users/data/repositories/user_repository.dart';
 import 'features/users/presentation/provider/user_provider.dart';
 import 'features/users/presentation/screens/home_screen.dart';
@@ -25,9 +26,23 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ],
-      child: MaterialApp(
+      /*child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomeScreen(),
+      ),*/
+
+      child: MaterialApp(
+
+        debugShowCheckedModeBanner: false,
+
+        // ✅ Initial screen
+        initialRoute: '/login',
+
+        // ✅ Named routes
+        routes: {
+          '/login': (_) => const LoginScreen(),
+          '/home': (_) => const HomeScreen(),
+        },
       ),
     );
   }
