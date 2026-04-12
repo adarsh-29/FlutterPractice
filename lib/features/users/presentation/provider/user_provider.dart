@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../../data/models/user_model.dart';
 import '../../data/repositories/user_repository.dart';
 
-//State Management (Provider)
+        /// State Management (Provider) It is replacement of view model *
 class UserProvider extends ChangeNotifier {
   final UserRepository repository;
 
