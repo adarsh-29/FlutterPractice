@@ -12,16 +12,38 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<UserProvider>(context, listen: false).fetchUsers());
+    // Initial fetch
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<UserProvider>().fetchUsers();
+    });
+
+    // Setup scroll listener
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
+        // Trigger fetch when user is 200 pixels from the bottom
+        context.read<UserProvider>().fetchUsers();
+      }
+    });
+
   }
+
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<UserProvider>(context);
+    final provider = context.watch<UserProvider>();
 
     return Scaffold(
       appBar: AppBar(title: const Text("User Directory")),
@@ -57,13 +79,33 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
 
                 return ListView.builder(
-                  itemCount: provider.users.length,
+                  controller: _scrollController, // Attach the controller
+                  itemCount: provider.users.length + (provider.hasMore ? 1 : 0),
+                 // itemCount: provider.users.length,
                   itemBuilder: (context, index) {
-                    User user = provider.users[index];
+                   /* User user = provider.users[index];
                     return InkWell(
                       onTap: ()=> openDetailScreen(user),
                       child: UserTile(user:user),
-                    ) ;
+                    ) ;*/
+
+                    // 1. Check if the current index is the "Extra" item (the loader)
+                    if (index == provider.users.length) {
+                      return const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 32.0),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    // 2. Otherwise, render the normal User tile
+                    User user = provider.users[index];
+                    return InkWell(
+                      onTap: () => openDetailScreen(user),
+                      child: UserTile(user: user),
+                    );
+
+
                   },
                 );
               },

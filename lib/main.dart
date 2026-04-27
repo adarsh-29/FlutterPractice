@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -8,9 +9,12 @@ import 'features/users/data/repositories/user_repository.dart';
 import 'features/users/presentation/provider/user_provider.dart';
 import 'features/users/presentation/screens/home_screen.dart';
 import 'features/users/presentation/screens/user_detail.dart';
+import 'firebase_options.dart';
 
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
