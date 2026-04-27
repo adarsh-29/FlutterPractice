@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled/features/users/data/models/user_model.dart';
 import '../provider/user_provider.dart';
 import '../widgets/user_tile.dart';
 
@@ -58,7 +59,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 return ListView.builder(
                   itemCount: provider.users.length,
                   itemBuilder: (context, index) {
-                    return UserTile(user: provider.users[index]);
+                    User user = provider.users[index];
+                    return InkWell(
+                      onTap: ()=> openDetailScreen(user),
+                      child: UserTile(user:user),
+                    ) ;
                   },
                 );
               },
@@ -66,6 +71,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
+    );
+  }
+
+
+  void openDetailScreen(User user) {
+    // Dummy login success
+    Navigator.pushNamed(
+      context,
+      '/userDetail',
+      arguments: user, // Pass the user object here
     );
   }
 }

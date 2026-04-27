@@ -7,6 +7,7 @@ import 'features/auth/presentation/screens/login_screen.dart';
 import 'features/users/data/repositories/user_repository.dart';
 import 'features/users/presentation/provider/user_provider.dart';
 import 'features/users/presentation/screens/home_screen.dart';
+import 'features/users/presentation/screens/user_detail.dart';
 
 
 void main() {
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ],
+
       /*child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: HomeScreen(),
@@ -42,6 +44,7 @@ class MyApp extends StatelessWidget {
         routes: {
           '/login': (_) => const LoginScreen(),
           '/home': (_) => const HomeScreen(),
+          '/userDetail': (_) => const UserDetailScreen(),
         },
       ),
     );
