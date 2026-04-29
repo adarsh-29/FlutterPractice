@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/features/users/data/models/user_model.dart';
+import 'package:untitled/utils/utils.dart';
 import '../provider/user_provider.dart';
 import '../widgets/user_tile.dart';
 
@@ -29,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         // Trigger fetch when user is 200 pixels from the bottom
         context.read<UserProvider>().fetchUsers();
       }
-    });
+    }) ;
 
   }
 
@@ -46,9 +48,30 @@ class _HomeScreenState extends State<HomeScreen> {
     final provider = context.watch<UserProvider>();
 
     return Scaffold(
-      appBar: AppBar(title: const Text("User Directory")),
+
+      appBar: AppBar(title: const Text("User Directory"),  actions: [
+
+        IconButton(
+          icon: const Icon(Icons.three_k_sharp),
+          onPressed: () {  Navigator.pushNamed(
+            context,
+            '/product',
+          ); }
+          ,
+        ),
+        IconButton(
+          icon: const Icon(Icons.logout),
+          // onPressed: () {  }
+          onPressed: logoutAndNav
+          ,
+        ),
+
+      ],
+      ),
+
       body: Column(
         children: [
+
           // 🔍 Search Bar
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -90,18 +113,28 @@ class _HomeScreenState extends State<HomeScreen> {
                     ) ;*/
 
                     // 1. Check if the current index is the "Extra" item (the loader)
-                    if (index == provider.users.length) {
-                      return const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 32.0),
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
+                    if (index == provider.users.length  ) {
+
+                      if(!provider.isSearch){ // If not showing search result, show the loader
+                        return const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 32.0),
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
+                      } else{ // If showing search result, don't show the loader
+                        return const SizedBox.shrink();
+                      }
+
                     }
                     // 2. Otherwise, render the normal User tile
                     User user = provider.users[index];
                     return InkWell(
-                      onTap: () => openDetailScreen(user),
+                      onTap: () => { Navigator.pushNamed(
+                                       context,
+                                      '/userDetail',
+                                       arguments: user, // Pass the user object here
+                                    )},
                       child: UserTile(user: user),
                     );
 
@@ -117,12 +150,25 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
-  void openDetailScreen(User user) {
+ /* void openDetailScreen(User user) {
     // Dummy login success
     Navigator.pushNamed(
       context,
       '/userDetail',
       arguments: user, // Pass the user object here
     );
+  }*/
+
+  void logoutAndNav() async {
+
+    Utils.logout();
+
+    Navigator.pushReplacementNamed(
+      context,
+      '/login',
+    );
+
   }
+
+
 }

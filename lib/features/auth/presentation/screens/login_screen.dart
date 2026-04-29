@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/services/AuthService.dart';
 
@@ -36,6 +37,13 @@ class _LoginScreenState extends State<LoginScreen> {
             Navigator.pushReplacementNamed(context, '/home');
           }
         }
+
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('     '
+            '', true);
+        await prefs.setString('email', _emailController.text.trim());
+        await prefs.setString('password', _passwordController.text.trim());
+
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -66,6 +74,8 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              if(_isLoading)
+                const Center(child: CircularProgressIndicator()),
               // Email Field
               TextFormField(
                 controller: _emailController,

@@ -7,7 +7,7 @@ class UserRepository {
   UserRepository(this.apiService);
 
   Future<List<User>> getUsers(int limit, int skip) async {
-    final data = await apiService.fetchUsers(limit:limit,skip: limit);
+    final data = await apiService.fetchUsers(limit:limit,skip: skip);
     return data.map<User>((json) => User.fromJson(json)).toList();
   }
 }

@@ -27,6 +27,8 @@ class UserProvider extends ChangeNotifier {
   String? get error => _error;
 
   bool get hasMore => _hasMore;
+  bool get isSearch=>_filteredUsers.length!=_users.length;
+
 
   Future<void> fetchUsers() async {
 

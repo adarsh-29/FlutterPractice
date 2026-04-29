@@ -6,12 +6,27 @@ import 'package:http/http.dart' as http;
 
 class ApiService {
   static const String baseUrl = "https://dummyjson.com";
+  static const String productBaseUrl = "https://api.escuelajs.co/api/v1/";
+
   //static const String url = "https://dummyjson.com/users?limit=10&skip=0&key=gender&value=male";
 
   // 1. Create a single Dio instance with the interceptor configured
   final Dio _dio = Dio(
     BaseOptions(
       baseUrl: baseUrl,
+      connectTimeout: const Duration(seconds: 5),
+      receiveTimeout: const Duration(seconds: 3),
+    ),
+  )..interceptors.add(LogInterceptor(
+    requestBody: true,
+    responseBody: true,
+    logPrint: (obj) => print(obj), // This ensures logs show in the console
+  ));
+
+
+  final Dio _dioProduct = Dio(  // this is needed as base url is changed
+    BaseOptions(
+      baseUrl: productBaseUrl,
       connectTimeout: const Duration(seconds: 5),
       receiveTimeout: const Duration(seconds: 3),
     ),
@@ -70,6 +85,19 @@ class ApiService {
     }
 
 
+  }
+
+  Future<List<dynamic>> fetchProducts() async{
+    try{
+      final response = await _dioProduct.get('/products');
+      if (response.statusCode == 200) {
+        return response.data;
+      } else {
+        throw Exception('Failed to load products');
+      }
+    } on DioException catch (e) {
+      throw Exception('Network error: ${e.message}');
+    }
   }
 
 
