@@ -101,4 +101,18 @@ class ApiService {
   }
 
 
+  Future<List<dynamic>> fetchNewProduct() async{
+    try{
+      final response = await _dio.get('/products');
+      if (response.statusCode == 200) {
+        return response.data['products'];
+      } else {
+        throw Exception('Failed to create product');
+      }
+    } on DioException catch (e) {
+      throw Exception('Network error: ${e.message}');
+    }
+  }
+
+
 }

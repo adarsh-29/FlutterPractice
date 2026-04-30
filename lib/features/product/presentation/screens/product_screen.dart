@@ -1,6 +1,5 @@
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:untitled/features/product/presentation/screens/product_tile.dart';
 
 import '../../data_n_repository/models/Products.dart';
@@ -31,8 +30,13 @@ class _ProductScreenState  extends State<ProductScreen>{
     final provider = context.watch<ProductProvider>();
 
     return Scaffold(
+
       appBar: AppBar(title: const Text("Product Directory")),
+
       body: Column(
+
+        crossAxisAlignment: CrossAxisAlignment.start,
+
         children: [
 
           Expanded(child: Builder(builder: (_) {
@@ -74,7 +78,6 @@ class _ProductScreenState  extends State<ProductScreen>{
                 },
             );
           }
-
 
           )
           )

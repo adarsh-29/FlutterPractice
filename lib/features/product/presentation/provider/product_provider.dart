@@ -17,6 +17,7 @@ class ProductProvider extends ChangeNotifier {
   String? get error => _error;
 
   Future<void> fetchProducts() async {
+
     if (_isLoading) return;
 
     _isLoading = true;
@@ -31,6 +32,7 @@ class ProductProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+
   }
 }
 

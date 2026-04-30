@@ -52,6 +52,15 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(title: const Text("User Directory"),  actions: [
 
         IconButton(
+          icon: const Icon(Icons.eighteen_mp),
+          onPressed: () {  Navigator.pushNamed(
+            context,
+            '/productNew',
+          ); }
+          ,
+        ),
+
+        IconButton(
           icon: const Icon(Icons.three_k_sharp),
           onPressed: () {  Navigator.pushNamed(
             context,

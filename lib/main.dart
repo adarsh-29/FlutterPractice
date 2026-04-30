@@ -2,10 +2,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:untitled/features/newProduct/presentation/provider/new_product_provider.dart';
+import 'package:untitled/theme.dart';
+import 'package:untitled/util.dart';
 
 import 'core/api/api_service.dart';
 import 'features/auth/presentation/screens/login_screen.dart';
 import 'features/initial/splash_screen.dart';
+import 'features/newProduct/data_n_repository/repositories/new_product_repository.dart';
+import 'features/newProduct/presentation/screens/new_product_screen.dart';
 import 'features/product/data_n_repository/repositories/product_repository.dart';
 import 'features/product/presentation/provider/product_provider.dart';
 import 'features/product/presentation/screens/product_detail_screen.dart';
@@ -28,16 +33,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final apiService = ApiService();
+    final brightness = View.of(context).platformDispatcher.platformBrightness;
+    TextTheme textTheme = createTextTheme(context, "Abel", "Acme");
+    MaterialTheme theme = MaterialTheme(textTheme);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (_) => UserProvider(
-            UserRepository(ApiService()),
+            UserRepository(apiService),
           ),
         ),
         ChangeNotifierProvider(
             create: (_) => ProductProvider(
-                ProductRepository(ApiService())
+                ProductRepository(apiService)
+            )
+        ),
+        ChangeNotifierProvider(
+            create: (_) => NewProductProvider(
+                NewProductRepository(apiService)
             )
         )
       ],
@@ -50,8 +64,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
 
         debugShowCheckedModeBanner: false,
-
-        //  Initial screen
+        theme: brightness == Brightness.light ? theme.light() : theme.dark(),
+        //  Initial screens
         initialRoute: '/splash',
 
         //  Named routes
@@ -62,9 +76,12 @@ class MyApp extends StatelessWidget {
           '/userDetail': (_) => const UserDetailScreen(),
           '/product': (_) => const ProductScreen(),
           '/productDetail': (_) => const ProductDetailScreen(),
+          '/productNew': (_) => const NewProductScreen(),
 
         },
       ),
     );
   }
 }
+
+
