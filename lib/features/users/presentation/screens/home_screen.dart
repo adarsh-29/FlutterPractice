@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         IconButton(
           icon: const Icon(Icons.logout),
           // onPressed: () {  }
-          onPressed: logoutAndNav
+          onPressed: showLogoutDialog
           ,
         ),
 
@@ -149,6 +149,45 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  void showLogoutDialog(){
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+            title: const Text(
+              "Logout?",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            ),
+            content: const Text(
+              "Are you sure you want to logout?",
+              style: TextStyle(fontWeight: FontWeight.normal),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: (){
+                    Navigator.of(context).pop(); // Close dialog
+                  },
+                  child: const Text("No")
+              ),
+              TextButton(
+                onPressed:  () {
+                  Navigator.of(context).pop();
+                  logoutAndNav(); // Call logout function
+                },
+                child:  const Text("Yes", style: TextStyle(color: Colors.red),),
+              )
+            ],
+
+          
+
+        );
+
+      }
+    );
+
+
+  }
 
  /* void openDetailScreen(User user) {
     // Dummy login success

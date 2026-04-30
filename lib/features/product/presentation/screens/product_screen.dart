@@ -65,7 +65,7 @@ class _ProductScreenState  extends State<ProductScreen>{
                   return InkWell(
                     onTap: () => { Navigator.pushNamed(
                       context,
-                      '/userDetail',
+                      '/productDetail',
                       arguments: product, // Pass the user object here
                     )},
                     child: ProductTile(product: product),

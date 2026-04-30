@@ -17,7 +17,27 @@ class ProductTile extends StatelessWidget{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Image.network(product.category!.image!, width: 100, height: 120, fit: BoxFit.cover),
+              child:
+             //  Image.network(product.category!.image!, width: 100, height: 120, fit: BoxFit.cover),
+                Image.network(
+                  product.images!.isNotEmpty ? (product.images![0] ) : (product.category!.image!),
+                  width: 100,
+                  height: 120,
+                  fit: BoxFit.cover,
+                  loadingBuilder: (context, child, progress) {
+                    if (progress == null) return child;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        value: progress.expectedTotalBytes != null
+                            ? progress.cumulativeBytesLoaded / progress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    return Center(child: Icon(Icons.error));
+                  },
+                )
             ),
             const SizedBox(height: 12),
             Text(product.title!,maxLines: 2,

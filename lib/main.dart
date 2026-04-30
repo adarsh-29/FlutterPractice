@@ -8,6 +8,7 @@ import 'features/auth/presentation/screens/login_screen.dart';
 import 'features/initial/splash_screen.dart';
 import 'features/product/data_n_repository/repositories/product_repository.dart';
 import 'features/product/presentation/provider/product_provider.dart';
+import 'features/product/presentation/screens/product_detail_screen.dart';
 import 'features/product/presentation/screens/product_screen.dart';
 import 'features/users/data/repositories/user_repository.dart';
 import 'features/users/presentation/provider/user_provider.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
           '/home': (_) => const HomeScreen(),
           '/userDetail': (_) => const UserDetailScreen(),
           '/product': (_) => const ProductScreen(),
+          '/productDetail': (_) => const ProductDetailScreen(),
 
         },
       ),
