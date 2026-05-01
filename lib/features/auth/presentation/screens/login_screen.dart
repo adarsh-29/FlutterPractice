@@ -32,17 +32,18 @@ class _LoginScreenState extends State<LoginScreen> {
           _passwordController.text.trim(),
         );
 
+        final prefs = await SharedPreferences.getInstance();
+
         if (user != null) {
+          await prefs.setBool( 'isLoggedIn' , true);
+          await prefs.setString('email', _emailController.text.trim());
+          await prefs.setString('password', _passwordController.text.trim());
           if (mounted) {
-            Navigator.pushReplacementNamed(context, '/home');
+            Navigator.pushReplacementNamed(context, '/main');
           }
         }
 
-        final prefs = await SharedPreferences.getInstance();
-        await prefs.setBool('     '
-            '', true);
-        await prefs.setString('email', _emailController.text.trim());
-        await prefs.setString('password', _passwordController.text.trim());
+
 
       } catch (e) {
         if (mounted) {

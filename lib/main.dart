@@ -15,11 +15,13 @@ import 'features/product/data_n_repository/repositories/product_repository.dart'
 import 'features/product/presentation/provider/product_provider.dart';
 import 'features/product/presentation/screens/product_detail_screen.dart';
 import 'features/product/presentation/screens/product_screen.dart';
+import 'features/profile/presentation/profile_screen.dart';
 import 'features/users/data/repositories/user_repository.dart';
 import 'features/users/presentation/provider/user_provider.dart';
 import 'features/users/presentation/screens/home_screen.dart';
 import 'features/users/presentation/screens/user_detail.dart';
 import 'firebase_options.dart';
+import 'main_screen.dart';
 
 
 Future<void> main() async {
@@ -72,16 +74,21 @@ class MyApp extends StatelessWidget {
         routes: {
           '/splash': (_) => const SplashScreen(),
           '/login': (_) => const LoginScreen(),
+          '/main': (_) => const MainScreen(),
+          '/profile': (_) => const ProfileScreen(),
           '/home': (_) => const HomeScreen(),
           '/userDetail': (_) => const UserDetailScreen(),
           '/product': (_) => const ProductScreen(),
           '/productDetail': (_) => const ProductDetailScreen(),
           '/productNew': (_) => const NewProductScreen(),
+          '/productDetailNew': (_) => const ProductDetailScreen(),
 
         },
       ),
     );
   }
 }
+
+
 
 

@@ -54,10 +54,11 @@ class SplashScreen extends StatefulWidget{
       openDashboardScreen();
     } else {
       // Not logged in
-      Navigator.pushReplacement(
+      openLoginScreen();
+     /* Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => LoginScreen()),
-      );
+      );*/
     }
 
 
@@ -67,12 +68,11 @@ class SplashScreen extends StatefulWidget{
      // Dummy login success
      Navigator.pushReplacementNamed(
        context,
-       '/home',
+       '/main',
      );
    }
 
    void openLoginScreen() {
-     // Dummy login success
      Navigator.pushReplacementNamed(
        context,
        '/login'

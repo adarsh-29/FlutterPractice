@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled/features/users/data/models/user_model.dart';
-import 'package:untitled/utils/utils.dart';
 import '../provider/user_provider.dart';
 import '../widgets/user_tile.dart';
 
@@ -49,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
 
-      appBar: AppBar(title: const Text("User Directory"),  actions: [
+      appBar: AppBar(title: const Text("User Directory"),  /* actions: [
 
         IconButton(
           icon: const Icon(Icons.eighteen_mp),
@@ -75,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ,
         ),
 
-      ],
+      ], */
       ),
 
       body: Column(
@@ -158,45 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void showLogoutDialog(){
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-            title: const Text(
-              "Logout?",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            ),
-            content: const Text(
-              "Are you sure you want to logout?",
-              style: TextStyle(fontWeight: FontWeight.normal),
-            ),
-            actions: [
-              TextButton(
-                  onPressed: (){
-                    Navigator.of(context).pop(); // Close dialog
-                  },
-                  child: const Text("No")
-              ),
-              TextButton(
-                onPressed:  () {
-                  Navigator.of(context).pop();
-                  logoutAndNav(); // Call logout function
-                },
-                child:  const Text("Yes", style: TextStyle(color: Colors.red),),
-              )
-            ],
-
-          
-
-        );
-
-      }
-    );
-
-
-  }
 
  /* void openDetailScreen(User user) {
     // Dummy login success
@@ -207,16 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }*/
 
-  void logoutAndNav() async {
 
-    Utils.logout();
-
-    Navigator.pushReplacementNamed(
-      context,
-      '/login',
-    );
-
-  }
 
 
 }
