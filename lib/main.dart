@@ -7,6 +7,7 @@ import 'package:untitled/theme.dart';
 import 'package:untitled/util.dart';
 
 import 'core/api/api_service.dart';
+import 'core/route/app_routs.dart';
 import 'features/auth/presentation/screens/login_screen.dart';
 import 'features/initial/splash_screen.dart';
 import 'features/newProduct/data_n_repository/repositories/new_product_repository.dart';
@@ -68,20 +69,20 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: brightness == Brightness.light ? theme.light() : theme.dark(),
         //  Initial screens
-        initialRoute: '/splash',
+        initialRoute: AppRoutes.splash,
 
         //  Named routes
         routes: {
-          '/splash': (_) => const SplashScreen(),
-          '/login': (_) => const LoginScreen(),
-          '/main': (_) => const MainScreen(),
-          '/profile': (_) => const ProfileScreen(),
-          '/home': (_) => const HomeScreen(),
-          '/userDetail': (_) => const UserDetailScreen(),
-          '/product': (_) => const ProductScreen(),
-          '/productDetail': (_) => const ProductDetailScreen(),
-          '/productNew': (_) => const NewProductScreen(),
-          '/productDetailNew': (_) => const ProductDetailScreen(),
+          AppRoutes.splash: (_) => const SplashScreen(),
+          AppRoutes.login: (_) => const LoginScreen(),
+          AppRoutes.main: (_) => const MainScreen(),
+          AppRoutes.profile: (_) => const ProfileScreen(),
+          AppRoutes.home: (_) => const HomeScreen(),
+          AppRoutes.userDetail: (_) => const UserDetailScreen(),
+          AppRoutes.product: (_) => const ProductScreen(),
+          AppRoutes.productDetail: (_) => const ProductDetailScreen(),
+          AppRoutes.productNew: (_) => const NewProductScreen(),
+         // AppRoutes.productDetailNew: (_) => const ProductDetailScreen(),
 
         },
       ),

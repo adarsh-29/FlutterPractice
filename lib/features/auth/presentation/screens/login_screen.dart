@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:untitled/core/route/app_routs.dart';
 
 import '../../../../core/services/AuthService.dart';
 
@@ -39,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
           await prefs.setString('email', _emailController.text.trim());
           await prefs.setString('password', _passwordController.text.trim());
           if (mounted) {
-            Navigator.pushReplacementNamed(context, '/main');
+            Navigator.pushReplacementNamed(context, AppRoutes.main);
           }
         }
 
